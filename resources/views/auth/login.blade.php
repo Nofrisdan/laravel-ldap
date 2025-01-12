@@ -14,9 +14,12 @@
 
     <div class="container mt-5">
         <h1 class="text-center">FORM LOGIN LDAP</h1>
+        @if ($errors->any())
         <div class="alert alert-danger" role="alert">
             Invalid Username / Password
         </div>
+        @endif
+
 
         <form>
             <div class="form-group">
