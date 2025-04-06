@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DebugController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/login", [AuthController::class, 'login'])->name("login");
-Route::post("/login", [AuthController::class, 'authenticate']);
-Route::get("/", [DashboardController::class, 'index']);
+// Route::get("/login", [AuthController::class, 'login'])->name("login");
+
+
+Route::middleware("guest")->group(function () {
+    Route::get("/login", [AuthController::class, 'login'])->name("login");
+    Route::post("/login", [AuthController::class, 'authenticate']);
+});
+Route::middleware("auth:web")->group(function () {
+    Route::get("/", [DashboardController::class, 'index']);
+    Route::get("/logout", [AuthController::class, 'logout']);
+});
+
+
+
+// testing
+Route::prefix("/debug")->get("/ldap", [DebugController::class, 'ldap_debug']);

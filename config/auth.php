@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'ldap' => [ // ✅ Tambahkan guard untuk LDAP
+            'driver' => 'session',
+            'provider' => 'ldap_users',
+        ],
     ],
 
     /*
@@ -64,6 +68,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'ldap_users' => [ // ✅ Provider khusus LDAP
+            'driver' => 'ldap',
+            'model' => App\Models\User::class,
+        ],
+
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,7 +106,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_reset_tokens',
+            // 'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
